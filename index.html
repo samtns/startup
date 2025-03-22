@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP TECH - Service and Advice</title>
+    <style>
+        /* Variables - Palette de couleurs modernes */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-color: #ecf0f1;
+            --dark-color: #1a1a1a;
+            --gradient: linear-gradient(135deg, #2c3e50, #3498db);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu li {
+            margin-left: 2rem;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .menu a:hover {
+            color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu a.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* Sections communes */
+        section {
+            padding: 8rem 1rem;
+            min-height: 100vh;
+            scroll-margin-top: 4rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--light-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Page d'accueil */
+        #accueil {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #accueil::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8));
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            color: var(--light-color);
+        }
+
+        .hero-logo {
+            max-width: 300px;
+            margin: 0 auto 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-logo svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .hero-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Services */
+        #services {
+            background: var(--dark-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-icon {
+            background: var(--gradient);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Organigramme */
+        #organigramme {
+            background: var(--dark-color);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .team-member {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .team-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 5px solid var(--light-color);
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .team-position {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact */
+        #contact {
+            background: var(--dark-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 2rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Mentions légales */
+        #mentions-legales {
+            background: var(--dark-color);
+        }
+
+        .legal-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 2rem;
+        }
+
+        .legal-section h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-section p {
+            color: var(--light-color);
+            margin-bottom: 1rem;
+        }
+
+        .legal-section strong {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links li {
+            margin: 0 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu {
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: var(--primary-color);
+                width: 100%;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: all 0.3s ease;
+            }
+
+            .menu.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .menu a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hamburger {
+                display: block;
+                cursor: pointer;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Ajout d'un hamburger menu pour le mobile */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#accueil" class="logo">
+                <svg width="200" height="50" viewBox="0 0 200 50">
+                    <!-- Fond avec effet de verre -->
+                    <rect x="0" y="0" width="200" height="50" rx="8" fill="rgba(255, 255, 255, 0.1)"/>
+                    
+                    <!-- Éléments décoratifs -->
+                    <circle cx="40" cy="25" r="15" fill="none" stroke="#3498db" stroke-width="2"/>
+                    <path d="M30 25 L50 25" stroke="#3498db" stroke-width="2"/>
+                    <path d="M40 15 L40 35" stroke="#3498db" stroke-width="2"/>
+                    
+                    <!-- Texte SAP TECH -->
+                    <text x="100" y="30" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">
+                        SAP <tspan fill="#3498db">TECH</tspan>
+                    </text>
+                </svg>
+            </a>
+            <button class="hamburger" id="hamburger">&#9776;</button>
+            <ul class="menu" id="menu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#organigramme">Équipe</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#mentions-legales">Mentions Légales</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Accueil -->
+    <section id="accueil">
+        <div class="container hero-content">
+            <div class="hero-logo">
+                <svg width="300" height="150" viewBox="0 0 300 150">
+                    <!-- Fond avec effet de verre -->
+                    <rect x="0" y="0" width="300" height="150" rx="15" fill="rgba(255, 255, 255, 0.1)"/>
+                    
+                    <!-- Éléments décoratifs plus grands -->
+                    <circle cx="150" cy="75" r="40" fill="none" stroke="#3498db" stroke-width="3"/>
+                    <path d="M130 75 L170 75" stroke="#3498db" stroke-width="3"/>
+                    <path d="M150 55 L150 95" stroke="#3498db" stroke-width="3"/>
+                    
+                    <!-- Texte SAP TECH plus grand -->
+                    <text x="150" y="120" font-family="Arial" font-size="36" font-weight="bold" fill="white" text-anchor="middle">
+                        SAP <tspan fill="#3498db">TECH</tspan>
+                    </text>
+                    
+                    <!-- Sous-titre -->
+                    <text x="150" y="140" font-family="Arial" font-size="14" fill="white" text-anchor="middle">
+                        SERVICE AND ADVICE
+                    </text>
+                </svg>
+            </div>
+            <h1>Solutions de Consulting Innovantes</h1>
+            <p>Nous accompagnons votre entreprise dans sa transformation numérique avec des solutions sur mesure et adaptées à vos besoins spécifiques.</p>
+            <a href="#contact" class="btn">Contactez-nous</a>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <h1>Nos Services</h1>
+            <p>Nous proposons une gamme complète de services pour vous accompagner dans tous vos projets digitaux.</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i>🌐</i>
+                    </div>
+                    <h2>Conception de Sites Web</h2>
+                    <p>Création de sites web professionnels, responsives et optimisés pour les moteurs de recherche. Nous concevons des interfaces intuitives qui répondent aux besoins de vos utilisateurs.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i>🖥️</i>
+                    </div>
+                    <h2>Développement d'Applications</h2>
+                    <p>Développement d'applications web et mobiles sur mesure, adaptées à vos besoins spécifiques. Nous utilisons les technologies les plus récentes pour garantir performance et évolutivité.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i>📱</i>
+                    </div>
+                    <h2>Stratégie Digitale</h2>
+                    <p>Élaboration de stratégies digitales complètes pour optimiser votre présence en ligne. Nous vous aidons à atteindre vos objectifs commerciaux grâce à des solutions numériques adaptées.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i>🔍</i>
+                    </div>
+                    <h2>Audit et Optimisation</h2>
+                    <p>Analyse approfondie de vos systèmes existants et recommandations pour améliorer les performances, la sécurité et l'expérience utilisateur.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i>🔧</i>
+                    </div>
+                    <h2>Maintenance et Support</h2>
+                    <p>Services de maintenance régulière et support technique pour assurer le bon fonctionnement de vos applications et sites web. Disponibilité rapide pour résoudre les problèmes techniques.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i>🎓</i>
+                    </div>
+                    <h2>Formation Technique</h2>
+                    <p>Programmes de formation personnalisés pour vos équipes, couvrant les dernières technologies et méthodologies de développement. Ateliers pratiques pour renforcer les compétences techniques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organigramme avec photos réelles -->
+    <section id="organigramme">
+        <div class="container">
+            <h1>Notre Équipe</h1>
+            <p>Une équipe d'experts passionnés et expérimentés dans leurs domaines respectifs.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <!-- Remplacé par l'Image 1 fournie -->
+                    <img src="https://i.postimg.cc/rsrgXMzc/moi-modified-1-modified.png" alt="Gérant" class="team-photo">
+                    <div class="team-name">Souheyl Labidi</div>
+                    <div class="team-position">Gérant Ingénieur</div>
+                    <p>Ingénieur en informatique.</p>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://i.postimg.cc/sfP9d6gp/pablo.jpg" alt="Ingénieur Développeur Associé" class="team-photo">
+                    <div class="team-name">Pablo Arias</div>
+                    <div class="team-position">Ingénieur Développeur Associé</div>
+                    <p>Spécialiste en architecture logicielle et développement.</p>
+                </div>
+                
+                <div class="team-member">
+                    <!-- Remplacé par l'Image 2 fournie -->
+                    <img src="https://i.postimg.cc/9XRLqtbS/abdullah.jpg" alt="Ingénieur Développeur" class="team-photo">
+                    <div class="team-name">Abdullah Asci</div>
+                    <div class="team-position">Ingénieur Développeur</div>
+                    <p>Développeur full-stack.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h1>Contactez-nous</h1>
+            <p>Nous sommes à votre disposition pour répondre à toutes vos questions et vous accompagner dans vos projets.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Nos Coordonnées</h2>
+                    <p><strong>Adresse :</strong> 123 Avenue des Consultants, 75008 Paris</p>
+                    <p><strong>Téléphone :</strong> +33 1 23 45 67 89</p>
+                    <p><strong>Email :</strong> contact@saptech.fr</p>
+                    <p><strong>Horaires :</strong> Du lundi au vendredi, de 9h à 18h</p>
+                    
+                    <h2>Suivez-nous</h2>
+                    <div class="social-links">
+                        <a href="#" class="btn">LinkedIn</a>
+                        <a href="#" class="btn">Twitter</a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Envoyez-nous un message</h2>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nom complet" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Téléphone">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="" disabled selected>Objet de votre message</option>
+                                <option value="demande-devis">Demande de devis</option>
+                                <option value="information">Demande d'information</option>
+                                <option value="partenariat">Proposition de partenariat</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Votre message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentions Légales -->
+    <section id="mentions-legales">
+        <div class="container">
+            <h1>Mentions Légales</h1>
+            
+            <div class="legal-section">
+                <h2>Informations Société</h2>
+                <p><strong>Raison sociale :</strong> SAP TECH SAS</p>
+                <p><strong>Forme juridique :</strong> Société par Actions Simplifiée (SAS)</p>
+                <p><strong>Capital social :</strong> 10 000 €</p>
+                <p><strong>Siège social :</strong> 123 Avenue des Consultants, 75008 Paris</p>
+                <p><strong>SIRET :</strong> 123 456 789 00012</p>
+                <p><strong>N° TVA Intracommunautaire :</strong> FR 12 123456789</p>
+                <p><strong>Directeur de la publication :</strong> Souheyl Labidi</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2>Hébergement</h2>
+                <p><strong>Hébergeur du site :</strong> OVH SAS</p>
+                <p><strong>Adresse :</strong> 2 rue Kellermann, 59100 Roubaix, France</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2>Propriété intellectuelle</h2>
+                <p>L'ensemble du contenu de ce site (textes, images, vidéos, etc.) est la propriété exclusive de SAP TECH SAS ou de ses partenaires. Toute reproduction ou utilisation sans autorisation préalable est strictement interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2>Protection des données personnelles</h2>
+                <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et d'opposition au traitement de vos données personnelles. Pour exercer ces droits, vous pouvez nous contacter à l'adresse email suivante : rgpd@saptech.fr.</p>
+                <p>Les données personnelles collectées sur ce site sont utilisées uniquement dans le cadre des services proposés par SAP TECH SAS et ne sont en aucun cas cédées à des tiers sans votre consentement explicite.</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2>Cookies</h2>
+                <p>Ce site utilise des cookies pour améliorer l'expérience utilisateur. En naviguant sur ce site, vous acceptez l'utilisation de ces cookies. Vous pouvez à tout moment les désactiver en modifiant les paramètres de votre navigateur.</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2>Loi applicable et juridiction</h2>
+                <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#organigramme">Équipe</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#mentions-legales">Mentions Légales</a></li>
+            </ul>
+            <p>&copy; 2025 SAP TECH SAS. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navigation active
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.menu a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Hamburger menu pour mobile
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+        
+        hamburger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
