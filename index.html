@@ -401,6 +401,24 @@
             color: white;
         }
 
+        .legal-documents {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .legal-documents a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .legal-documents a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         /* Footer */
         footer {
             background-color: var(--primary-color);
@@ -686,6 +704,19 @@
     <section id="mentions-legales">
         <div class="container">
             <h1>Mentions Légales</h1>
+            
+            <div class="legal-section">
+                <h2>Documents Légaux</h2>
+                <p>Consultez nos documents légaux en cliquant sur les liens ci-dessous :</p>
+                <div class="legal-documents">
+                    <a href="Mentions.pdf" class="btn" target="_blank">
+                        <i>📄</i> Mentions Légales
+                    </a>
+                    <a href="Politique.pdf" class="btn" target="_blank">
+                        <i>🔒</i> Politique de Confidentialité
+                    </a>
+                </div>
+            </div>
             
             <div class="legal-section">
                 <h2>Informations Société</h2>
